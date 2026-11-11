@@ -1,0 +1,10 @@
+reference/
+target/
+*.pdb
+/dist/
+/local/
+.env
+/target
+
+# graphify knowledge graph output (generated)
+graphify-out/

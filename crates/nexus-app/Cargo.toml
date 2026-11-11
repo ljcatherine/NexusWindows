@@ -1,0 +1,47 @@
+[package]
+name = "nexus-app"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Nexus Desktop — Midnight Liquid Glass IDE and infrastructure manager"
+
+[[bin]]
+name = "NexusDesktop"
+path = "src/main.rs"
+
+[dependencies]
+nexus-core.workspace = true
+nexus-access.workspace = true
+nexus-security.workspace = true
+nexus-telemetry.workspace = true
+nexus-workspaces.workspace = true
+nexus-git.workspace = true
+nexus-context.workspace = true
+nexus-providers.workspace = true
+nexus-agents.workspace = true
+nexus-ssh.workspace = true
+nexus-terminal.workspace = true
+nexus-ide.workspace = true
+nexus-ui.workspace = true
+eframe = { version = "0.37", default-features = false, features = ["wgpu", "default_fonts", "accesskit"] }
+egui = "0.37"
+keyring = "4"
+serde.workspace = true
+serde_json.workspace = true
+tokio.workspace = true
+parking_lot.workspace = true
+uuid.workspace = true
+similar = "2"
+raw-window-handle = "0.6"
+rfd = "0.15"
+image = { version = "0.25", default-features = false, features = ["png"] }
+
+[target.'cfg(windows)'.dependencies]
+windows-sys = { version = "0.61", features = ["Win32_Graphics_Dwm", "Win32_Foundation", "Win32_UI_WindowsAndMessaging"] }
+winreg = "0.55"
+
+[build-dependencies]
+winresource = "0.1"
+
+[dev-dependencies]
+tempfile.workspace = true

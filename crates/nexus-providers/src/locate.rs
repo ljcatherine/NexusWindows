@@ -70,6 +70,19 @@ fn newest_bundled(root: &Path) -> Option<PathBuf> {
     found.pop().map(|(_, p)| p)
 }
 
+/// DeepSeek Harness CLI (`dsh`, npm `@deepseek-ai/dsh`): env override, PATH
+/// (the npm `dsh.cmd` shim), then npm's default global prefix.
+pub fn dsh() -> Option<PathBuf> {
+    if let Some(p) = std::env::var_os("NEXUS_DSH_PATH").map(PathBuf::from).filter(|p| p.is_file()) {
+        return Some(p);
+    }
+    if let Some(p) = on_path(&["dsh.cmd", "dsh.exe", "dsh"]) {
+        return Some(p);
+    }
+    let p = PathBuf::from(std::env::var_os("APPDATA")?).join("npm").join("dsh.cmd");
+    p.is_file().then_some(p)
+}
+
 /// Command builder that never opens a console window.
 pub fn command(program: &Path) -> std::process::Command {
     let mut c = if program.extension().is_some_and(|e| e.eq_ignore_ascii_case("cmd")) {

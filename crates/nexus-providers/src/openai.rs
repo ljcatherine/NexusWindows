@@ -77,7 +77,7 @@ pub fn validate_base_url(url: &str) -> Result<(), UrlError> {
     }
 }
 
-fn agent() -> ureq::Agent {
+pub(crate) fn agent() -> ureq::Agent {
     ureq::Agent::config_builder()
         .timeout_connect(Some(Duration::from_secs(10)))
         .timeout_global(Some(Duration::from_secs(1800)))

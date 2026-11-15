@@ -6,12 +6,15 @@
 //!   `-p --output-format stream-json` mode, authenticated by `claude auth login`.
 //! * [`openai::OpenAiCompatible`] — OpenAI-compatible chat endpoints (OpenAI API,
 //!   Anthropic-compatible proxies, PS5LM Plus, local servers). Chat only; no tools.
+//! * [`dsh::DshProvider`] — official DeepSeek Harness CLI (`dsh --profile headless
+//!   --json`), with NexusAI (PS5, :8081) as its model when a NexusAI URL is set.
 //!
 //! Nexus never reads provider credentials owned by the official CLIs.
 //! Providers run work on background threads and report through an [`EventSink`].
 
 pub mod claude;
 pub mod codex;
+pub mod dsh;
 pub mod locate;
 pub mod openai;
 

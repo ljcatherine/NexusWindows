@@ -2,6 +2,21 @@
 
 > Only claims backed by evidence are marked verified.
 
+## Unreleased — DeepSeek Harness agents on NexusAI
+
+- New AI provider **DeepSeek Harness** (`nexus-providers/src/dsh.rs`): the official
+  `dsh` CLI (npm `@deepseek-ai/dsh`, found as the `dsh.cmd` shim on `PATH` or in
+  `%APPDATA%\npm`) in headless JSON mode. Ask/Plan run read-only, Agent follows the
+  workspace policy (shell tools removed unless commands are granted), Bypass is
+  full access, approvals off. When the NexusAI / PS5LM Plus URL is set, each turn
+  routes DSH to NexusAI (:8081) through a private per-turn overlay; the user's own
+  DSH profiles are never edited. Same adapter as the Linux port (NexusNix).
+- **Verified** on a Linux host: `cargo test -p nexus-providers` (24 passed, 10 DSH
+  tests) and `cargo test -p nexus-app`. The identical adapter ran real DSH turns
+  against NexusAI on Linux. **Not verified:** no Windows build; DSH not run on
+  Windows (the `dsh.cmd` shim through `cmd /C`, PowerShell tools, Windows sandbox);
+  no UI run.
+
 ## 1.0.0 — first public release
 
 Nexus Desktop is an AI IDE and home-lab control room for Windows. This release

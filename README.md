@@ -41,7 +41,8 @@ PowerShell, Command Prompt, WSL and Git Bash terminals.
 
 ### AI
 **Codex** (official `codex app-server`) and **Claude Code** (official CLI) in
-Ask, Plan, Agent and Bypass modes, plus OpenAI-compatible APIs and PS5LM Plus.
+Ask, Plan, Agent and Bypass modes, plus **DeepSeek Harness** agents running on
+NexusAI (the PS5 model server), OpenAI-compatible APIs and PS5LM Plus.
 Visible context sharing, secret detection, image and PDF attachments,
 command approvals, agent edits reviewed hunk by hunk, Ctrl+K inline edits and
 resumable sessions with task memory.
@@ -78,6 +79,7 @@ flowchart LR
         D["Nexus Desktop"]
         CX["Codex CLI"]
         CC["Claude Code CLI"]
+        DS["DeepSeek Harness CLI"]
     end
     P["Nexus iPhone app"]
     N["NixOS host"]
@@ -117,8 +119,11 @@ To use the Cloudflare relay with your own gateway, build from source with the se
 | **Claude Code** | Install Claude Code, run `claude auth login` (or Settings → AI providers → *Sign in…*) | Your Claude Pro/Max plan |
 | **OpenAI-compatible** | Settings → AI providers → add an endpoint; keys go to Windows Credential Manager | The API's own billing |
 | **PS5LM Plus** | Settings → AI providers → set its LAN URL | Local |
+| **DeepSeek Harness** | `npm install -g @deepseek-ai/dsh` (Node.js 22.19+) so `dsh` is on `PATH`. With the NexusAI / PS5LM Plus URL set, its model is NexusAI ([NexusAI docs/DSH.md](https://github.com/ljcatherine/NexusAI/blob/main/docs/DSH.md)) | Local (NexusAI), else DSH's own model |
 
-A provider only shows **Connected** after its sign-in and a real test turn both succeed.
+A provider only shows **Connected** after its sign-in and a real test turn both succeed. DeepSeek Harness on NexusAI
+is the exception: a test turn takes about a minute on a PS5, so it shows Connected once NexusAI lists its model and
+DSH composes the turn profile, and says "no test turn".
 
 ## Build from source
 
@@ -162,7 +167,7 @@ The full model, including the owner's timed Debian unlock and the app lock, is i
 | [`nexus-ui`](crates/nexus-ui) | Midnight Liquid Glass design system |
 | [`nexus-ide`](crates/nexus-ide) | Editor engine and widget |
 | [`nexus-terminal`](crates/nexus-terminal) | ConPTY terminals on `alacritty_terminal` |
-| [`nexus-providers`](crates/nexus-providers) | Codex, Claude Code and OpenAI-compatible adapters |
+| [`nexus-providers`](crates/nexus-providers) | Codex, Claude Code, DeepSeek Harness and OpenAI-compatible adapters |
 | [`nexus-agents`](crates/nexus-agents) | Sessions (SQLite), snapshots, task memory |
 | [`nexus-context`](crates/nexus-context) | Context sharing rules, secret scan, project instructions |
 | [`nexus-workspaces`](crates/nexus-workspaces) | Workspaces, search, shadow workspaces, change sets |

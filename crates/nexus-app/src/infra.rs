@@ -1230,8 +1230,8 @@ pub fn settings_screen(app: &mut NexusApp, ui: &mut Ui) {
             }
             ui.separator();
             ui.horizontal(|ui| {
-                ui.label("PS5LM Plus URL (OpenAI-compatible, LAN)");
-                ui.add(egui::TextEdit::singleline(&mut app.s.ps5_url).hint_text("http://192.168.x.x:8080/v1").desired_width(280.0));
+                ui.label("NexusAI / PS5LM Plus URL (OpenAI-compatible, LAN)");
+                ui.add(egui::TextEdit::singleline(&mut app.s.ps5_url).hint_text("http://192.168.x.x:8081/v1").desired_width(280.0));
                 if ui.button("Apply").clicked() {
                     match nexus_providers::openai::validate_base_url(&app.s.ps5_url) {
                         Ok(()) | Err(_) if app.s.ps5_url.trim().is_empty() => {
@@ -1246,7 +1246,7 @@ pub fn settings_screen(app: &mut NexusApp, ui: &mut Ui) {
                     }
                 }
             });
-            ui.label(secondary(&t, "Direct LAN access only. Access through the Cloudflare-protected gateway is not implemented yet in Nexus Desktop."));
+            ui.label(secondary(&t, "Direct LAN access only. Access through the Cloudflare-protected gateway is not implemented yet in Nexus Desktop. DeepSeek Harness agents use this server as their model."));
             ui.separator();
             api_provider_editor(app, ui, &t);
         });

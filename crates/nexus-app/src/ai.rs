@@ -10,6 +10,7 @@ use nexus_agents::store::{SessionRow, Store};
 use nexus_context::{load_attachment, project_instructions, scan, Refusal, SharedItem, SharingManifest};
 use nexus_providers::claude::ClaudeCodeProvider;
 use nexus_providers::codex::CodexProvider;
+use nexus_providers::dsh::DshProvider;
 use nexus_providers::openai::{OpenAiCompatible, OpenAiConfig};
 use nexus_providers::{
     ApprovalDecision, ApprovalKind, Attachment, Billing, Connection, Event, EventSink, Mode, PlanStatus, PlanStep, Provider, ToolPolicy, TurnHandle,
@@ -124,6 +125,13 @@ fn build_providers(s: &Settings) -> Vec<ProviderEntry> {
     let mut v: Vec<ProviderEntry> = vec![
         ProviderEntry { provider: Arc::new(CodexProvider), key: "codex".into(), status: Connection::Unknown, checking: false },
         ProviderEntry { provider: Arc::new(ClaudeCodeProvider), key: "claude".into(), status: Connection::Unknown, checking: false },
+        // DeepSeek Harness agent; its model is NexusAI when the NexusAI URL is set.
+        ProviderEntry {
+            provider: Arc::new(DshProvider { nexusai_url: Some(s.ps5_url.trim().to_string()).filter(|u| !u.is_empty()) }),
+            key: "dsh".into(),
+            status: Connection::Unknown,
+            checking: false,
+        },
     ];
     if !s.ps5_url.trim().is_empty() {
         let cfg = OpenAiConfig { id: "ps5lm".into(), name: "PS5LM Plus (local)".into(), base_url: s.ps5_url.trim().into(), model: String::new(), billing: Billing::Local, key_target: None };
